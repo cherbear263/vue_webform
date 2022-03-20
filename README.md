@@ -4,10 +4,10 @@
 
 ## Description
 
-Form styling with TailwindCSS
-2 way data binding for form
-submit handler with very basic form validation
-Adapted from Udemy 'Learn Vue JS 3 & Firebase by creating & deploying dynamic web apps' by Shaun Pelling
+- Form styling with TailwindCSS
+- 2 way data binding for form
+- submit handler with very basic form validation
+- Adapted from Udemy 'Learn Vue JS 3 & Firebase by creating & deploying dynamic web apps' by Shaun Pelling
 
 ## Project setup
 
