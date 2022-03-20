@@ -1,6 +1,6 @@
 <template>
 
-  <form action="" class="max-w-md my-4 mx-auto bg-white p-10 rounded-md">
+  <form @submit.prevent="handleSubmit" class="max-w-md my-4 mx-auto bg-white p-10 rounded-md">
     <h1 class="text-2xl font-semibold py-3 px-2 text-center uppercase text-blue-500"
     >Sign Up</h1>
     <div class="mb-4">
@@ -11,7 +11,6 @@
       mb-2"
       required
       v-model="email"/>
-      <p class="text-red-500 text-xs italic">Please enter a valid email.</p>
 
     </div>
     <div class="mb-4">
@@ -22,7 +21,7 @@
        mb-2"
       required
       v-model="password"/>
-      <p class="text-red-500 text-xs italic">Please choose a password.</p>
+      <p v-if="passwordError" class="text-red-500 text-xs italic">{{ passwordError }}</p>
     </div>
     <div class="mb-4">
       <label for="role" class="text-gray-400 inline-block text-xs uppercase font-semibold tracking-wide py-3"
@@ -36,7 +35,6 @@
         <option value="designer">Web Designer</option>
         <option value="project manager">Project Manager</option>
       </select>
-      <p class="text-red-500 text-xs italic">This field is required.</p>
     </div>
     <div class="mb-4">
       <label for="skills" class="text-gray-400 inline-block text-xs uppercase font-semibold tracking-wide py-3"
@@ -46,7 +44,6 @@
       class="block py-1 px-2 w-full box-border
       border-b-2 border-gray-300 rounded-md text-gray-600 focus:outline-gray-300 
       mb-2"
-      required
       v-model="tempSkill"
       @keyup="addSkill"/>
       <div class="flex flex-wrap">
@@ -98,15 +95,12 @@
       <label for="terms" class="text-gray-400 inline-block text-xs uppercase font-semibold tracking-wide py-3 px-2"
       >Please accept the terms and conditions.</label>
       
-      <p class="text-red-500 text-xs italic">Please accept the terms.</p>
+      <p v-if="termsError" class="text-red-500 text-xs italic">{{ termsError }}</p>
     </div>
     <div class="flex items-center justify-between">
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-        Sign In
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+        Create an Account
       </button>
-      <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-        Forgot Password?
-      </a>
     </div>
   </form>
   <div class="max-w-md mx-auto">
@@ -132,7 +126,9 @@ export default {
       terms: false,
       contactTime: [],
       tempSkill: '',
-      skills: []
+      skills: [],
+      passwordError: '',
+      termsError: ''
     }
   },
   methods: {
@@ -152,6 +148,22 @@ export default {
         // remove item if it returns false (the skill that was passed in)
         return skill !== item;
       })
+    },
+    handleSubmit() {
+      // validate password
+      this.passwordError = this.password.length > 5 ?
+      '' : 'Password must be at least 6 chars long'
+      this.termsError = this.terms = true ? 
+      '' : 'Please accept the terms and conditions'
+
+      if(!this.passwordError || !this.termsError) {
+        console.log('email: ', this.email)
+        console.log('password: ', this.password)
+        console.log('role: ', this.role)
+        console.log('skills: ', this.skills)
+        console.log('best contact time: ', this.contactTime)
+        console.log('terms accepted: ', this.terms)
+      }
     }
   }
 }
