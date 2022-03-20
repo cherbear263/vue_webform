@@ -1,6 +1,7 @@
 # web-form
 
 Basic web form in vue with tailwindcss
+![image of form](src/assets/screenshot.png)
 
 ## Project setup
 
